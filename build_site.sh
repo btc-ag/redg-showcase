@@ -3,6 +3,7 @@
 DOCUMENTATION_GIT="https://github.com/btc-ag/redg-documentation.git"
 VISUALIZER_GIT="https://github.com/btc-ag/redg-visualizer.git"
 CODE_GIT="https://github.com/btc-ag/redg.git"
+CODE_RELEASE_TAG=$1
 
 function log {
 	echo ">>>> RedG Site Builder >>>> $1"
@@ -40,7 +41,7 @@ function build_visualizer {
 }
 
 function build_javadoc {
-	git clone --depth 1 $CODE_GIT main_src
+	git clone --depth 1 --branch $CODE_RELEASE_TAG $CODE_GIT main_src
 	cd main_src
 
 	mvn javadoc:aggregate
@@ -49,6 +50,12 @@ function build_javadoc {
 	cd ..
 	rm -rf main_src
 }
+
+if [ $# != 1 ]
+then
+    echo "You need to supply the current RedG git tag for the javadoc build!"
+    exit 1
+fi
 
 check_dependencies
 
