@@ -63,6 +63,10 @@ log "Removing old builds..."
 
 rm -rf dist
 
+mkdir -p dist/documentation
+mkdir -p dist/visualizer
+mkdir -p dist/apidocs
+
 log "Copying showcase..."
 
 rsync -a --exclude=img-sources src/* dist/
